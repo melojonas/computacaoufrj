@@ -1,0 +1,47 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.1
+date	2023.04.10.13.50.36;	author marcelo.lanza;	state Exp;
+branches;
+next	;
+
+
+desc
+@EEL270 - Computacao II - Turma2023/1.
+Segundo exemplo. Organizacao do codigo-fonte em linhas.
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@/*******************************************************************************
+ *
+ * Universidade Federal do Rio de Janeiro
+ * Escola Politecnica
+ * Departamento de Eletronica e de Computacao
+ * Prof. Marcelo Luiz Drumond Lanza
+ * EEL270 - Computacao II - Turma 2023/1
+ *
+ * Descricao:
+ *
+ * $Author$
+ * $Date$
+ * $Log$
+ *
+ *******************************************************************************/
+
+main () 
+{
+	printf ("EEL270 - Computacao II - Turma 2023/1 - Segundo Exemplo");
+}
+
+/* $RCSfile$ */
+@

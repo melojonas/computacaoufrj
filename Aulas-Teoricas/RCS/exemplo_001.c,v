@@ -1,0 +1,27 @@
+head	1.1;
+access;
+symbols;
+locks
+	marcelo.lanza:1.1; strict;
+comment	@ * @;
+
+
+1.1
+date	2023.04.10.13.44.44;	author marcelo.lanza;	state Exp;
+branches;
+next	;
+
+
+desc
+@EEL270 - Computacao II - Turma 2023/1.
+Primeiro exemplo - Uso de mas praticas de programacao.
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@main(){printf("EEL270 - Computacao II - Turma 2023/1 - Primeiro Exemplo");}
+@
