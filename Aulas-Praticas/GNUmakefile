@@ -46,32 +46,34 @@ CFLAGS = -Wall $(STANDARD)
 LFLAGS = -Wall
 
 AULA01 = 	aula0101\
-		aula0102\
-		aula0103
+			aula0102\
+			aula0103
+
 AULA02 =	aula0202a\
-		aula0202b\
-		aula0202c\
-		aula0202d
+			aula0202b\
+			aula0202c\
+			aula0202d
 
 AULA03 =	aula0302a\
-		aula0302b\
-		aula0302c\
-		aula0302d
+			aula0302b\
+			aula0302c\
+			aula0302d
 
 AULA04 =	aula0402a\
-		aula0402b\
-		aula0402c\
-		aula0402d\
-		aula0404a\
-		aula0404b\
-		aula0404c\
-		aula0404d\
-		aula0404e
+			aula0402b\
+			aula0402c\
+			aula0402d\
+			aula0404a\
+			aula0404b\
+			aula0404c\
+			aula0404d\
+			aula0404e
 
 AULA05 =	aula0502\
 			aula0503
 
-AULA06 =	aula0602a
+AULA06 =	aula0602a\
+			aula0602b\
 
 AULA0101OBJS = aula0101.o
 AULA0102OBJS = aula0102.o
@@ -101,6 +103,7 @@ AULA0502OBJS = aula0501.o aula0502.o
 AULA0503OBJS = aula0501.o aula0503.o
 
 AULA0602AOBJS = aula0601.o aula0602a.o
+AULA0602BOBJS = aula0601.o aula0602b.o
 
 LIBMATEMATICARECURSAOOBJS = aula0201a.o aula0301a.o aula0401a.o aula0403a.o
 LIBMATEMATICADOWHILEOBJS = aula0201b.o aula0301b.o aula0401b.o aula0403b.o
@@ -282,6 +285,10 @@ aula0503: $(AULA0503OBJS)
 
 aula0602a: $(AULA0602AOBJS)
 	$(LD) $(LFLAGS) -o $@ $(AULA0602AOBJS)
+	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
+
+aula0602b: $(AULA0602BOBJS)
+	$(LD) $(LFLAGS) -o $@ $(AULA0602BOBJS)
 	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
 
 libmatematicarecursao.a: $(LIBMATEMATICARECURSAOOBJS)

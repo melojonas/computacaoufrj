@@ -14,6 +14,7 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 #include "aula0601.h"
 
 /* Implementação da função GerarDigitosVerificadoresRG */
@@ -24,10 +25,6 @@ tipoErros GerarDigitosVerificadoresRg(byte rg [] /* entrada/saída */)
 
     if (rg == NULL)
         return argumentoInvalido;
-
-    /* Verificar se rg tem comprimento igual COMPRIMENTO_RG */
-    if (sizeof(rg) / sizeof(rg[0]) != COMPRIMENTO_RG)
-        return comprimentoRgInvalido;
 
     for (indice = 0; indice < 8; indice++){
         soma += (rg[indice] * (indice + 2));

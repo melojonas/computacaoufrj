@@ -29,7 +29,7 @@ typedef enum {
     } tipoErros;
 
 tipoErros
-GerarDigitosVerificadoresRg (byte [ ]);
+GerarDigitosVerificadoresRg (byte rg []);
 
 #endif
 

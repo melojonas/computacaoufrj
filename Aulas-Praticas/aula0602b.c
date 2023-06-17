@@ -28,30 +28,46 @@
 #include "aula0601.h"
 #include "aula01.h"
 
-#define NUMERO_ARGUMENTOS   COMPRIMENTO_RG + 1
+#define NUMERO_ARGUMENTOS   2
 #define EOS                 '\0'
 
 int main (int argc, char *argv[])
 {
-    byte rg[COMPRIMENTO_RG + 1];
+    byte rg[COMPRIMENTO_RG + 2];
     unsigned indice;
     tipoErros codigoRetorno;
 
     if (argc != NUMERO_ARGUMENTOS)
     {
-        printf ("Uso: %s <d1> <d2> <d3> <d4> <d5> <d6> <d7> <d8>\n", argv[0]);
+        printf ("Uso: %s <d1d2.d3d4d5.d6d7d8>\n", argv[0]);
         exit (numeroArgumentosInvalido);
     }
 
-    for (indice = 1; indice < argc; indice++)
+    if (strlen(argv[1]) != (COMPRIMENTO_RG + 2))
     {
-        if (argv[indice][0] < '0' || argv[indice][0] > '9')
+        printf ("Comprimento do argumento deve ser %u\n", COMPRIMENTO_RG + 2);
+        exit (comprimentoRgInvalido);
+    }
+
+    for (indice = 0; indice < strlen(argv[1]); indice++)
+    {
+        if (indice == 2 || indice == 6)
+        {
+            if (argv[1][indice] != '.')
+            {
+                printf ("Argumento #%u inválido\n", indice);
+                exit (digitoInvalido);
+            }
+            continue;
+        }
+
+        if (argv[1][indice] < '0' || argv[1][indice] > '9')
         {
             printf ("Argumento #%u invalido\n", indice);
             exit (digitoInvalido);
         }
 
-        rg[indice - 1] = (unsigned char) (argv[indice][0] - '0');
+        rg[indice] = (argv[1][indice] - '0');
     }
 
     codigoRetorno = GerarDigitosVerificadoresRg (rg);
