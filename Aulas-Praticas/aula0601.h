@@ -31,6 +31,9 @@ typedef enum {
 tipoErros
 GerarDigitosVerificadoresRg (byte rg []);
 
+tipoErros
+ValidarRg (byte [ ] /* entrada */);
+
 #endif
 
 /* $RCSfile$ */

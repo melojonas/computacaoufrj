@@ -46,4 +46,26 @@ tipoErros GerarDigitosVerificadoresRg(byte rg [] /* entrada/saída */)
     return ok;
 }
 
+/* Implementação da função ValidarRG usando a função GerarDigitosVerificadoresRg */
+tipoErros ValidarRg(byte rg [] /* entrada */) {
+    unsigned char digitoRecebido, digitoCalculado;
+
+    if (rg == NULL)
+        return argumentoInvalido;
+
+    if (sizeof(rg) != 9)
+        return comprimentoRgInvalido;
+    
+    digitoRecebido = rg[8];
+
+    GerarDigitosVerificadoresRg(rg);
+
+    digitoCalculado = rg[8];
+
+    if (digitoRecebido != digitoCalculado)
+        return digitoInvalido;
+
+    return ok;
+}
+
 /* $RCSfile$ */
