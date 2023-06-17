@@ -7,9 +7,10 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "${file}",
+                "aula0601.c"
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -21,7 +22,8 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "Tarefa gerada pelo Depurador."
+            "detail": "Tarefa gerada pelo Depurador.",
+            
         }
     ],
     "version": "2.0.0"

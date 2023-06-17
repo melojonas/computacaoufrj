@@ -42,7 +42,11 @@ DIALECT = c11
 STANDARD = -std=c11
 endif
 
-CFLAGS = -Wall $(STANDARD)
+ifeq ($(debug), DEBUG)
+DEBUG = -g
+endif
+
+CFLAGS = -Wall $(STANDARD) $(DEBUG)
 LFLAGS = -Wall
 
 AULA01 = 	aula0101\
@@ -74,6 +78,7 @@ AULA05 =	aula0502\
 
 AULA06 =	aula0602a\
 			aula0602b\
+			aula0603a
 
 AULA0101OBJS = aula0101.o
 AULA0102OBJS = aula0102.o
@@ -104,6 +109,7 @@ AULA0503OBJS = aula0501.o aula0503.o
 
 AULA0602AOBJS = aula0601.o aula0602a.o
 AULA0602BOBJS = aula0601.o aula0602b.o
+AULA0603AOBJS = aula0601.o aula0603a.o
 
 LIBMATEMATICARECURSAOOBJS = aula0201a.o aula0301a.o aula0401a.o aula0403a.o
 LIBMATEMATICADOWHILEOBJS = aula0201b.o aula0301b.o aula0401b.o aula0403b.o
@@ -289,6 +295,10 @@ aula0602a: $(AULA0602AOBJS)
 
 aula0602b: $(AULA0602BOBJS)
 	$(LD) $(LFLAGS) -o $@ $(AULA0602BOBJS)
+	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
+
+aula0603a: $(AULA0603AOBJS)
+	$(LD) $(LFLAGS) -o $@ $(AULA0603AOBJS)
 	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
 
 libmatematicarecursao.a: $(LIBMATEMATICARECURSAOOBJS)

@@ -25,7 +25,8 @@ typedef enum {
     numeroArgumentosInvalido,
     digitoInvalido,
     argumentoInvalido,
-    comprimentoRgInvalido
+    comprimentoRgInvalido,
+    digitoVerificadorInvalido
     } tipoErros;
 
 tipoErros

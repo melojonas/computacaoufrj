@@ -34,9 +34,7 @@ tipoErros GerarDigitosVerificadoresRg(byte rg [] /* entrada/saída */)
 
     diferenca = 11 - resto;
 
-    if (diferenca == 10)
-        digito = 88;
-    else if (diferenca == 11)
+    if (diferenca == 11)
         digito = 0;
     else
         digito = diferenca;
@@ -52,9 +50,6 @@ tipoErros ValidarRg(byte rg [] /* entrada */) {
 
     if (rg == NULL)
         return argumentoInvalido;
-
-    if (sizeof(rg) != 9)
-        return comprimentoRgInvalido;
     
     digitoRecebido = rg[8];
 
@@ -62,8 +57,10 @@ tipoErros ValidarRg(byte rg [] /* entrada */) {
 
     digitoCalculado = rg[8];
 
+    rg[8] = digitoRecebido;
+
     if (digitoRecebido != digitoCalculado)
-        return digitoInvalido;
+        return digitoVerificadorInvalido;
 
     return ok;
 }
