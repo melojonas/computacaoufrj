@@ -78,7 +78,12 @@ AULA05 =	aula0502\
 
 AULA06 =	aula0602a\
 			aula0602b\
-			aula0603a
+			aula0603a\
+			aula0603b\
+			aula0605a\
+			aula0605b\
+			aula0606a\
+			aula0606b
 
 AULA0101OBJS = aula0101.o
 AULA0102OBJS = aula0102.o
@@ -110,6 +115,11 @@ AULA0503OBJS = aula0501.o aula0503.o
 AULA0602AOBJS = aula0601.o aula0602a.o
 AULA0602BOBJS = aula0601.o aula0602b.o
 AULA0603AOBJS = aula0601.o aula0603a.o
+AULA0603BOBJS = aula0601.o aula0603b.o
+AULA0605AOBJS = aula0604.o aula0605a.o
+AULA0605BOBJS = aula0604.o aula0605b.o
+AULA0606AOBJS = aula0604.o aula0606a.o
+AULA0606BOBJS = aula0604.o aula0606b.o
 
 LIBMATEMATICARECURSAOOBJS = aula0201a.o aula0301a.o aula0401a.o aula0403a.o
 LIBMATEMATICADOWHILEOBJS = aula0201b.o aula0301b.o aula0401b.o aula0403b.o
@@ -198,6 +208,16 @@ aula05-all:
 		for compiler in gcc clang ; do \
 			$$compiler $(CFLAGS) -D$$standard -o aula0502-$(OS)-$$compiler-$$standard aula0501.c aula0502.c; \
 			$$compiler $(CFLAGS) -D$$standard -o aula0503-$(OS)-$$compiler-$$standard aula0501.c aula0503.c; \
+		done \
+	done
+
+aula06-all:
+	@for standard in c90 c89 c99 c11 ansi; do \
+		for compiler in gcc clang ; do \
+			$$compiler $(CFLAGS) -D$$standard -o aula0605a-$(OS)-$$compiler-$$standard aula0604.c aula0605a.c; \
+			$$compiler $(CFLAGS) -D$$standard -o aula0605b-$(OS)-$$compiler-$$standard aula0604.c aula0605b.c; \
+			$$compiler $(CFLAGS) -D$$standard -o aula0606a-$(OS)-$$compiler-$$standard aula0604.c aula0606a.c; \
+			$$compiler $(CFLAGS) -D$$standard -o aula0606b-$(OS)-$$compiler-$$standard aula0604.c aula0606b.c; \
 		done \
 	done
 
@@ -299,6 +319,26 @@ aula0602b: $(AULA0602BOBJS)
 
 aula0603a: $(AULA0603AOBJS)
 	$(LD) $(LFLAGS) -o $@ $(AULA0603AOBJS)
+	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
+
+aula0603b: $(AULA0603BOBJS)
+	$(LD) $(LFLAGS) -o $@ $(AULA0603BOBJS)
+	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
+
+aula0605a: $(AULA0605AOBJS)
+	$(LD) $(LFLAGS) -o $@ $(AULA0605AOBJS)
+	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
+
+aula0605b: $(AULA0605BOBJS)
+	$(LD) $(LFLAGS) -o $@ $(AULA0605BOBJS)
+	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
+
+aula0606a: $(AULA0606AOBJS)
+	$(LD) $(LFLAGS) -o $@ $(AULA0606AOBJS)
+	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
+
+aula0606b: $(AULA0606BOBJS)
+	$(LD) $(LFLAGS) -o $@ $(AULA0606BOBJS)
 	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
 
 libmatematicarecursao.a: $(LIBMATEMATICARECURSAOOBJS)
