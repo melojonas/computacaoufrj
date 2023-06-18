@@ -160,7 +160,7 @@ aula01-all:
 	@for standard in c90 c89 c99 c11 ansi; do \
 		for compiler in gcc clang ; do \
 			for file in $(AULA01); do \
-				$$compiler $(CFLAGS) -D$$standard -o $$(basename $$file .c)-$(OS)-$$compiler-$$standard $$file.c; \
+				$$compiler $(CFLAGS) -Werror -D$$standard -o $$(basename $$file .c)-$(OS)-$$compiler-$$standard $$file.c; \
 			done \
 		done \
 	done
@@ -170,7 +170,7 @@ aula02-all:
 		for compiler in gcc clang ; do \
 			for file in aula0201?.c ; do \
 				output_file=$$(echo aula0202$$(basename $$file .c | cut -c9)) ; \
-				$$compiler $(CFLAGS) -D$$standard -o $$output_file-$(OS)-$$compiler-$$standard $$file aula0202.c ; \
+				$$compiler $(CFLAGS) -Werror -D$$standard -o $$output_file-$(OS)-$$compiler-$$standard $$file aula0202.c ; \
 			done \
 		done \
 	done
@@ -180,7 +180,7 @@ aula03-all:
 		for compiler in gcc clang ; do \
 			for file in aula0301?.c ; do \
 				output_file=$$(echo aula0302$$(basename $$file .c | cut -c9)) ; \
-				$$compiler $(CFLAGS) -D$$standard -o $$output_file-$(OS)-$$compiler-$$standard $$file aula0302.c ; \
+				$$compiler $(CFLAGS) -Werror -D$$standard -o $$output_file-$(OS)-$$compiler-$$standard $$file aula0302.c ; \
 			done \
 		done \
 	done
@@ -190,7 +190,7 @@ aula04-all:
 		for compiler in gcc clang ; do \
 			for file in aula0401?.c ; do \
 				output_file=$$(echo aula0402$$(basename $$file .c | cut -c9)) ; \
-				$$compiler $(CFLAGS) -D$$standard -o $$output_file-$(OS)-$$compiler-$$standard $$file aula0402.c -lm ; \
+				$$compiler $(CFLAGS) -Werror -D$$standard -o $$output_file-$(OS)-$$compiler-$$standard $$file aula0402.c -lm ; \
 			done \
 		done \
 	done
@@ -198,7 +198,7 @@ aula04-all:
 		for compiler in gcc clang ; do \
 			for file in aula0403?.c ; do \
 				output_file=$$(echo aula0404$$(basename $$file .c | cut -c9)) ; \
-				$$compiler $(CFLAGS) -D$$standard -o $$output_file-$(OS)-$$compiler-$$standard $$file aula0404.c -lm ; \
+				$$compiler $(CFLAGS) -Werror -D$$standard -o $$output_file-$(OS)-$$compiler-$$standard $$file aula0404.c -lm ; \
 			done \
 		done \
 	done
@@ -206,18 +206,20 @@ aula04-all:
 aula05-all:
 	@for standard in c90 c89 c99 c11 ansi; do \
 		for compiler in gcc clang ; do \
-			$$compiler $(CFLAGS) -D$$standard -o aula0502-$(OS)-$$compiler-$$standard aula0501.c aula0502.c; \
-			$$compiler $(CFLAGS) -D$$standard -o aula0503-$(OS)-$$compiler-$$standard aula0501.c aula0503.c; \
+			$$compiler $(CFLAGS) -Werror -D$$standard -o aula0502-$(OS)-$$compiler-$$standard aula0501.c aula0502.c; \
+			$$compiler $(CFLAGS) -Werror -D$$standard -o aula0503-$(OS)-$$compiler-$$standard aula0501.c aula0503.c; \
 		done \
 	done
 
 aula06-all:
 	@for standard in c90 c89 c99 c11 ansi; do \
 		for compiler in gcc clang ; do \
-			$$compiler $(CFLAGS) -D$$standard -o aula0605a-$(OS)-$$compiler-$$standard aula0604.c aula0605a.c; \
-			$$compiler $(CFLAGS) -D$$standard -o aula0605b-$(OS)-$$compiler-$$standard aula0604.c aula0605b.c; \
-			$$compiler $(CFLAGS) -D$$standard -o aula0606a-$(OS)-$$compiler-$$standard aula0604.c aula0606a.c; \
-			$$compiler $(CFLAGS) -D$$standard -o aula0606b-$(OS)-$$compiler-$$standard aula0604.c aula0606b.c; \
+			$$compiler $(CFLAGS) -Werror -D$$standard -o aula0602a-$(OS)-$$compiler-$$standard aula0601.c aula0602a.c; \
+			$$compiler $(CFLAGS) -Werror -D$$standard -o aula0602b-$(OS)-$$compiler-$$standard aula0601.c aula0602b.c; \
+			$$compiler $(CFLAGS) -Werror -D$$standard -o aula0603a-$(OS)-$$compiler-$$standard aula0601.c aula0603a.c; \
+			$$compiler $(CFLAGS) -Werror -D$$standard -o aula0605a-$(OS)-$$compiler-$$standard aula0604.c aula0605a.c; \
+			$$compiler $(CFLAGS) -Werror -D$$standard -o aula0605b-$(OS)-$$compiler-$$standard aula0604.c aula0605b.c; \
+			$$compiler $(CFLAGS) -Werror -D$$standard -o aula0606a-$(OS)-$$compiler-$$standard aula0604.c aula0606a.c; \
 		done \
 	done
 
@@ -335,10 +337,6 @@ aula0605b: $(AULA0605BOBJS)
 
 aula0606a: $(AULA0606AOBJS)
 	$(LD) $(LFLAGS) -o $@ $(AULA0606AOBJS)
-	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
-
-aula0606b: $(AULA0606BOBJS)
-	$(LD) $(LFLAGS) -o $@ $(AULA0606BOBJS)
 	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
 
 libmatematicarecursao.a: $(LIBMATEMATICARECURSAOOBJS)
