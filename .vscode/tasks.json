@@ -10,7 +10,7 @@
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "${file}",
-                "aula0604.c"
+                "aula0801.c"
             ],
             "options": {
                 "cwd": "${fileDirname}"
