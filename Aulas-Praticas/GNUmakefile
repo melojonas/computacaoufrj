@@ -89,7 +89,10 @@ AULA08 =	aula0802\
 			aula0803\
 			aula0804\
 			aula0805\
-			aula0806
+			aula0806\
+			aula0807\
+			aula0808\
+			aula0809
 
 AULA0101OBJS = aula0101.o
 AULA0102OBJS = aula0102.o
@@ -132,6 +135,9 @@ AULA0803OBJS = aula0801.o aula0803.o
 AULA0804OBJS = aula0801.o aula0804.o
 AULA0805OBJS = aula0801.o aula0805.o
 AULA0806OBJS = aula0801.o aula0806.o
+AULA0807OBJS = aula0801.o aula0807.o
+AULA0808OBJS = aula0801.o aula0808.o
+AULA0809OBJS = aula0801.o aula0809.o
 
 LIBMATEMATICARECURSAOOBJS = aula0201a.o aula0301a.o aula0401a.o aula0403a.o
 LIBMATEMATICADOWHILEOBJS = aula0201b.o aula0301b.o aula0401b.o aula0403b.o
@@ -236,6 +242,16 @@ aula06-all:
 			$$compiler $(CFLAGS) -Werror -D$$standard -o aula0605a-$(OS)-$$compiler-$$standard aula0604.c aula0605a.c; \
 			$$compiler $(CFLAGS) -Werror -D$$standard -o aula0605b-$(OS)-$$compiler-$$standard aula0604.c aula0605b.c; \
 			$$compiler $(CFLAGS) -Werror -D$$standard -o aula0606a-$(OS)-$$compiler-$$standard aula0604.c aula0606a.c; \
+		done \
+	done
+
+aula08-all:
+	@for standard in c90 c89 c99 c11 ansi; do \
+		for compiler in gcc clang ; do \
+			file in aula080?.c ; do \
+				output_file=$$(echo aula080$$(basename $$file .c | cut -c9)) ; \
+				$$compiler $(CFLAGS) -Werror -D$$standard -o $$output_file-$(OS)-$$compiler-$$standard $$file aula0801.c ; \
+			done \
 		done \
 	done
 
@@ -372,6 +388,18 @@ aula0805: $(AULA0805OBJS) $(LIBBASE)
 	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
 
 aula0806: $(AULA0806OBJS) $(LIBBASE)
+	$(LD) $(LFLAGS) -o $@ $^
+	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
+
+aula0807: $(AULA0807OBJS) $(LIBBASE)
+	$(LD) $(LFLAGS) -o $@ $^
+	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
+
+aula0808: $(AULA0808OBJS) $(LIBBASE)
+	$(LD) $(LFLAGS) -o $@ $^
+	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
+
+aula0809: $(AULA0809OBJS) $(LIBBASE)
 	$(LD) $(LFLAGS) -o $@ $^
 	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
 

@@ -19,64 +19,88 @@
 #include "aula0801.h"
 #include "aula01.h"
 
-void exibirBytesDecodificados(byte *dadosDecodificados, ull numBytes) {
-    ull i;
-    
-    printf(TEXT_BOLD TEXT_BLACK ">>>> %s", RESET);
-    for (i = 0; i < numBytes; i++) {
-        printf(TEXT_GREEN "%02X ", dadosDecodificados[i]);
+void imprimirMensagemErro(tipoErros erro) {
+    printf(TEXT_RED);
+    switch (erro) {
+        case argumentoInvalido:
+            printf("Argumento inválido.");
+            break;
+        case comprimentoInvalido:
+            printf("Comprimento inválido.");
+            break;
+        case numBytesInvalido:
+            printf("Número de bytes inválido.");
+            break;
+        case memoriaInsuficiente:
+            printf("Memória insuficiente.");
+            break;
+        case valorByteInvalido:
+            printf("Valor de byte inválido.");
+            break;
+        case falhaCodificacao:
+            printf("Falha na codificação.");
+            break;
+        case hexadecimalInvalido:
+            printf("Hexadecimal inválido.");
+            break;
+        case falhaDecodificacao:
+            printf("Falha na decodificação.");
+            break;
+        case alfabetoInvalido:
+            printf("Alfabeto inválido.");
+            break;
+        case entradaInvalida:
+            printf("Entrada inválida.");
+            break;
+        case finalLinhaInvalido:
+            printf("Indicador de final de linha inválido.");
+            break;
+        default:
+            printf("Erro desconhecido.");
+            break;
     }
     printf(RESET "\n");
 }
 
-void exibirErro(char *mensagemErro) {
-    printf(TEXT_RED "%s%s\n", mensagemErro, RESET);
+void imprimirBytesHex(byte *bytes, ull numBytes) {
+    ull i;
+    
+    printf(TEXT_BOLD TEXT_BLACK ">>>> %s", RESET);
+    for (i = 0; i < numBytes; i++) {
+        printf(TEXT_GREEN "%02X ", bytes[i]);
+    }
+    printf(RESET "\n");
 }
 
 int main(int argc, char *argv[]) {
-    if (argc != 3) {
-        exibirErro("Número incorreto de argumentos!\n");
-        exit(comprimentoInvalido);
+    if (argc < 4) {
+        imprimirMensagemErro(argumentoInvalido);
+        return 0;
     }
 
-    tipoAlfabetoBase32 alfabeto;
-    if (strcmp(argv[1], "0") == 0) {
-        alfabeto = basico;
-    } else if (strcmp(argv[1], "1") == 0) {
-        alfabeto = estendido;
-    } else {
-        exibirErro("Argumento de alfabeto inválido!\n");
-        exit(argumentoInvalido);
+    tipoFinalLinha finalLinha = atoi(argv[1]);
+    tipoAlfabeto64 alfabeto = atoi(argv[2]);
+    char *entrada = argv[3];
+
+    byte *saida = (byte *) malloc(strlen(entrada) * 3 / 4);
+    if (saida == NULL) {
+        imprimirMensagemErro(memoriaInsuficiente);
+        return 0;
     }
 
-    char *stringCodificada = argv[2];
-    ull tamanhoStringCodificada = strlen(stringCodificada);
-    ull numBytesDecodificados = (tamanhoStringCodificada * 5) / 8;
-    byte *dadosDecodificados = (byte *)malloc((tamanhoStringCodificada + 1) * sizeof(byte));
-
-    if (dadosDecodificados == NULL) {
-        exibirErro("Erro ao alocar memória!\n");
-        exit(memoriaInsuficiente);
+    ull numBytes;
+    tipoErros resultado = DecodificarBase64(entrada, finalLinha, alfabeto, saida, &numBytes);
+    if (resultado != ok) {
+        imprimirMensagemErro(resultado);
+        free(saida);
+        return 0;
     }
 
-    tipoErros resultadoDecodificacao = DecodificarBase32(stringCodificada, alfabeto, dadosDecodificados, &numBytesDecodificados);
+    imprimirBytesHex(saida, numBytes);
 
-    if (resultadoDecodificacao != ok) {
-        if (resultadoDecodificacao == entradaInvalida) {
-            exibirErro("String codificada inválida!\n");
-        } else {
-            exibirErro("Erro ao decodificar Base32!\n");
-        }
-        free(dadosDecodificados);
-        exit(falhaDecodificacao);
-    }
+    free(saida);
 
-    exibirBytesDecodificados(dadosDecodificados, numBytesDecodificados);
-
-    free(dadosDecodificados);
-
-    return ok;
+    return 0;
 }
-
 
 /* $RCSfile$ */

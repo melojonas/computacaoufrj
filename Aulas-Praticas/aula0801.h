@@ -33,7 +33,8 @@ typedef enum {
     falhaDecodificacao,
     alfabetoInvalido,
     entradaInvalida,
-    finalLinhaInvalido
+    finalLinhaInvalido,
+    saidaInvalida
     } tipoErros;
 
 tipoErros
