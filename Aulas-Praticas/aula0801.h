@@ -17,6 +17,7 @@
 #define AULA0801 "@(#)aula0801.h $Revision$"
 
 typedef unsigned char byte;
+typedef unsigned long long ull;
 typedef enum { basico, estendido } tipoAlfabetoBase32;
 typedef enum { padrao, seguro } tipoAlfabeto64;
 typedef enum { desabilitado, habilitado } tipoFinalLinha;
@@ -30,22 +31,24 @@ typedef enum {
     falhaCodificacao,
     hexadecimalInvalido,
     falhaDecodificacao,
-    alfabetoInvalido
+    alfabetoInvalido,
+    entradaInvalida,
+    finalLinhaInvalido
     } tipoErros;
 
 tipoErros
 CodificarBase16 (   byte * /* (E) */,
-                    unsigned long long /* (E) */,
+                    ull /* (E) */,
                     char * /* (S) */);
 
 tipoErros
 DecodificarBase16 ( char * /* (E) */,
                     byte * /* (S) */, 
-                    unsigned long long * /* (S) */);
+                    ull * /* (S) */);
 
 tipoErros
 CodificarBase32 (   byte * /* (E) */,
-                    unsigned long long /* (E) */,
+                    ull /* (E) */,
                     tipoAlfabetoBase32 /* (E) */,
                     char * /* (S) */);
 
@@ -53,14 +56,21 @@ tipoErros
 DecodificarBase32 ( char * /* (E) */,
                     tipoAlfabetoBase32 /* (E) */,
                     byte * /* (S) */,
-                    unsigned long long * /* (S) */);
+                    ull * /* (S) */);
 
 tipoErros
 CodificarBase64 (   byte * /* (E) */,
-                    unsigned long long /* (E) */,
+                    ull /* (E) */,
                     tipoFinalLinha /* (E) */,
                     tipoAlfabeto64 /* (E) */,
                     char * /* (S) */);
+
+tipoErros
+DecodificarBase64 ( char * /* (E) */,
+                    tipoFinalLinha /* (E) */,
+                    tipoAlfabeto64 /* (E) */,
+                    byte * /* (S) */,
+                    ull * /* (S) */);
 
 #endif
 

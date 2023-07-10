@@ -9,7 +9,7 @@
         "type": "cppdbg",
         "request": "launch",
         "program": "${workspaceFolder}/Aulas-Praticas/${fileBasenameNoExtension}",
-        "args": ["0", "10", "20", "AB", "E0", "50", "18", "29", "71", "78", "FF", "00"],
+        "args": ["0", "ECV6AUAYFFYXR7YA"],
         "stopAtEntry": false,
         "cwd": "${fileDirname}",
         "environment": [],
