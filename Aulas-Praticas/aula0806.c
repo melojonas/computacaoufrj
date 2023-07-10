@@ -13,6 +13,14 @@
  * $Log$
  */
 
+#if defined (__FreeBSD__) && defined (__STRICT_ANSI__)
+#define __LONG_LONG_SUPPORTED
+#endif
+
+#ifdef __linux__
+#define _XOPEN_SOURCE 600
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -71,9 +79,9 @@ int main(int argc, char *argv[]) {
         return argumentoInvalido;
     }
     if (opcaoAlfabeto == 0)
-        alfabeto = basico;
+        alfabeto = padrao;
     else if (opcaoAlfabeto == 1)
-        alfabeto = estendido;
+        alfabeto = seguro;
     else {
         exibirErro("Opção inválida para o alfabeto.");
         return alfabetoInvalido;

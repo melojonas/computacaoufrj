@@ -54,9 +54,9 @@ tipoErros codificarArquivo(const char *nomeArquivoEntrada, const char *nomeArqui
         return entradaInvalida;
     }
 
-    tipoFinalLinha finalLinha = habilitado; // Habilita caracteres de final de linha para arquivos codificados
+    tipoFinalLinha finalLinha = habilitado;
 
-    char *saida = (char *) malloc(tamanhoArquivo * 4 / 3 + 4); // Tamanho máximo de saída em Base64
+    char *saida = (char *) malloc(tamanhoArquivo * 4 / 3 + 4);
     if (saida == NULL) {
         free(buffer);
         return memoriaInsuficiente;

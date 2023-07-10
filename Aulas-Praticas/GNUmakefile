@@ -248,9 +248,11 @@ aula06-all:
 aula08-all:
 	@for standard in c90 c89 c99 c11 ansi; do \
 		for compiler in gcc clang ; do \
-			file in aula080?.c ; do \
-				output_file=$$(echo aula080$$(basename $$file .c | cut -c9)) ; \
-				$$compiler $(CFLAGS) -Werror -D$$standard -o $$output_file-$(OS)-$$compiler-$$standard $$file aula0801.c ; \
+			for file in aula080?.c ; do \
+				if [ "$$file" = "aula0801.c" ]; then \
+					continue; \
+				fi; \
+				$$compiler $(CFLAGS) -Werror -D$$standard -o $$(basename $$file .c)-$(OS)-$$compiler-$$standard $$file aula0801.c ; \
 			done \
 		done \
 	done

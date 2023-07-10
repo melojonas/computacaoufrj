@@ -93,9 +93,9 @@ tipoErros decodificarArquivo(const char *nomeArquivoCodificado, const char *nome
 
     buffer[tamanhoArquivo] = '\0';
 
-    tipoFinalLinha finalLinha = desabilitado; // Desabilita caracteres de final de linha para arquivos decodificados
+    tipoFinalLinha finalLinha = desabilitado;
 
-    byte *saida = (byte *) malloc(tamanhoArquivo); // Tamanho máximo de saída em Base64
+    byte *saida = (byte *) malloc(tamanhoArquivo);
     if (saida == NULL) {
         free(buffer);
         return memoriaInsuficiente;
