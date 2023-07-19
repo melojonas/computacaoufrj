@@ -94,6 +94,13 @@ AULA08 =	aula0802\
 			aula0808\
 			aula0809
 
+AULA09 =	aula0902\
+			aula0903\
+			aula0904\
+			aula0905\
+			aula0906\
+			aula0907
+
 AULA0101OBJS = aula0101.o
 AULA0102OBJS = aula0102.o
 AULA0103OBJS = aula0103.o
@@ -139,12 +146,20 @@ AULA0807OBJS = aula0801.o aula0807.o
 AULA0808OBJS = aula0801.o aula0808.o
 AULA0809OBJS = aula0801.o aula0809.o
 
+AULA0902OBJS = aula0901.o aula0902.o
+AULA0903OBJS = aula0901.o aula0903.o
+AULA0904OBJS = aula0901.o aula0904.o
+AULA0905OBJS = aula0901.o aula0905.o
+AULA0906OBJS = aula0901.o aula0906.o
+AULA0907OBJS = aula0901.o aula0907.o
+
 LIBMATEMATICARECURSAOOBJS = aula0201a.o aula0301a.o aula0401a.o aula0403a.o
 LIBMATEMATICADOWHILEOBJS = aula0201b.o aula0301b.o aula0401b.o aula0403b.o
 LIBMATEMATICAFOROBJS = aula0201c.o aula0301c.o aula0401c.o aula0403c.o
 LIBMATEMATICAWHILEOBJS = aula0201d.o aula0301d.o aula0401d.o aula0403d.o
 LIBMATEMATICAOBJS = aula0501.o
 LIBBASEOBJS = aula0801.o
+LIBARQUIVOSOBJS = aula0901.o
 
 LIBMATEMATICARECURSAO = libmatematicarecursao.a
 LIBMATEMATICADOWHILE = libmatematicadowhile.a
@@ -152,9 +167,10 @@ LIBMATEMATICAFOR = libmatematicafor.a
 LIBMATEMATICAWHILE = libmatematicawhile.a
 LIBMATEMATICA = libmatematica.a
 LIBBASE = libbase.a
+LIBARQUIVOS = libarquivos.a
 
-LIBS = $(LIBMATEMATICARECURSAO) $(LIBMATEMATICADOWHILE) $(LIBMATEMATICAFOR) $(LIBMATEMATICAWHILE) $(LIBMATEMATICA) $(LIBBASE)
-EXECS = $(AULA01) $(AULA02) $(AULA03) $(AULA04) $(AULA05) $(AULA06) $(AULA08)
+LIBS = $(LIBMATEMATICARECURSAO) $(LIBMATEMATICADOWHILE) $(LIBMATEMATICAFOR) $(LIBMATEMATICAWHILE) $(LIBMATEMATICA) $(LIBBASE) $(LIBARQUIVOS)
+EXECS = $(AULA01) $(AULA02) $(AULA03) $(AULA04) $(AULA05) $(AULA06) $(AULA08) $(AULA09)
 
 ALL = $(EXECS) $(LIBS)
 
@@ -177,6 +193,8 @@ aula05: $(AULA05)
 aula06: $(AULA06)
 
 aula08: $(AULA08)
+
+aula09: $(AULA09)
 
 aula01-all:
 	@for standard in c90 c89 c99 c11 ansi; do \
@@ -405,6 +423,30 @@ aula0809: $(AULA0809OBJS) $(LIBBASE)
 	$(LD) $(LFLAGS) -o $@ $^
 	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
 
+aula0902: $(AULA0902OBJS) $(LIBARQUIVOS)
+	$(LD) $(LFLAGS) -o $@ $^
+	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
+
+aula0903: $(AULA0903OBJS) $(LIBARQUIVOS)
+	$(LD) $(LFLAGS) -o $@ $^
+	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
+
+aula0904: $(AULA0904OBJS) $(LIBARQUIVOS)
+	$(LD) $(LFLAGS) -o $@ $^
+	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
+
+aula0905: $(AULA0905OBJS) $(LIBARQUIVOS)
+	$(LD) $(LFLAGS) -o $@ $^
+	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
+
+aula0906: $(AULA0906OBJS) $(LIBARQUIVOS)
+	$(LD) $(LFLAGS) -o $@ $^
+	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
+
+aula0907: $(AULA0907OBJS) $(LIBARQUIVOS)
+	$(LD) $(LFLAGS) -o $@ $^
+	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)
+
 libmatematicarecursao.a: $(LIBMATEMATICARECURSAOOBJS)
 	$(AR) $(ARFLAGS) $@ $(LIBMATEMATICARECURSAOOBJS)
 
@@ -419,6 +461,9 @@ libmatematicawhile.a: $(LIBMATEMATICAWHILEOBJS)
 
 libbase.a: $(LIBBASEOBJS)
 	$(AR) $(ARFLAGS) $@ $(LIBBASEOBJS)
+
+libarquivos.a: $(LIBARQUIVOSOBJS)
+	$(AR) $(ARFLAGS) $@ $^
 
 .PHONY: clean-all clean clean-gcc clean-clang clean-bsd clean-linux clean-ansi clean-c89 clean-90 clean-c99 clean-c11
 

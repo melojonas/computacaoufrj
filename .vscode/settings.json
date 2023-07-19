@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "cctype": "c",
-        "aula0801.h": "c"
+        "aula0801.h": "c",
+        "unistd.h": "c"
     }
 }
