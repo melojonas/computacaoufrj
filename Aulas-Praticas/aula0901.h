@@ -28,6 +28,8 @@ typedef enum {
     erroRenomearConvertido
     } tipoErros;
 
+void ExibirMensagemErro(tipoErros erro);
+
 tipoErros
 ExibirConteudoArquivo (char * /* (E) */);
 
@@ -35,6 +37,9 @@ tipoErros
 ConverterArquivoFormatoUnixParaFormatoDos ( char *, /* original */
                                             char * /* convertido */);
 
+tipoErros
+ConverterArquivoFormatoDosParaFormatoUnix ( char * /* original */,
+                                            char * /*convertido */);
 
 #endif
 

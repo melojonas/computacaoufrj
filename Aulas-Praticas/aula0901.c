@@ -133,4 +133,76 @@ tipoErros ConverterArquivoFormatoUnixParaFormatoDos(char *arquivoOriginal, char 
     return ok;
 }
 
+tipoErros ConverterArquivoFormatoDosParaFormatoUnix(char *arquivoOriginal, char *arquivoConvertido) {
+    FILE *original, *convertido;
+    char *temporario = NULL;
+    char *novoNome = NULL;
+    time_t currentTime;
+    struct tm *timeInfo;
+    char backupName[256];
+    int ch;
+
+    if (arquivoOriginal == NULL)
+        return argumentoInvalido;
+
+    original = fopen(arquivoOriginal, "r");
+    if (original == NULL)
+        return erroArquivoOriginal;
+
+    if (arquivoConvertido == NULL) {
+        /* Criar arquivo temporário */
+        temporario = strdup("convertido-XXXXXX");
+        int fd = mkstemp(temporario);
+        if (fd == -1) {
+            fclose(original);
+            return erroCriarArquivoTemporario;
+        }
+        close(fd);
+
+        /* Criar nome de backup com timestamp */
+        currentTime = time(NULL);
+        timeInfo = localtime(&currentTime);
+        strftime(backupName, sizeof(backupName), "%Y%m%d_%H%M%S", timeInfo);
+
+        novoNome = (char *)malloc(strlen(arquivoOriginal) + strlen(".backup-") + strlen(backupName) + 1);
+        strcpy(novoNome, arquivoOriginal);
+        strcat(novoNome, ".backup-");
+        strcat(novoNome, backupName);
+    }
+
+    /* Abrir arquivo convertido para escrita */
+    convertido = fopen((arquivoConvertido == NULL) ? temporario : arquivoConvertido, "w");
+
+    if (convertido == NULL) {
+        fclose(original);
+        free(temporario);
+        return erroArquivoConvertido;
+    }
+
+    /* Converter conteúdo do arquivo original para formato Unix */
+    while ((ch = fgetc(original)) != EOF) {
+        if (ch != '\r')
+            fputc(ch, convertido);
+    }
+
+    fclose(original);
+    fclose(convertido);
+
+    /* Renomear arquivo original para backup */
+    if (arquivoConvertido == NULL) {
+        if (rename(arquivoOriginal, novoNome) != 0) {
+            free(temporario);
+            return erroRenomearOriginal;
+        }
+        /* Renomear arquivo temporário para original */
+        if (rename(temporario, arquivoOriginal) != 0) {
+            free(temporario);
+            return erroRenomearConvertido;
+        }
+        free(temporario);
+    }
+
+    return ok;
+}
+
 /* $RCSfile$ */
