@@ -25,7 +25,14 @@ typedef enum {
     erroArquivoConvertido,
     erroCriarArquivoTemporario,
     erroRenomearOriginal,
-    erroRenomearConvertido
+    erroRenomearConvertido,
+    erroAbrindoArquivo,
+    erroLendoArquivo,
+    erroEscrevendoArquivo,
+    erroFechandoArquivo,
+    erroOpcaoInvalida,
+    erroConverterUnixParaDos,
+    erroConverterDosParaUnix
     } tipoErros;
 
 void ExibirMensagemErro(tipoErros erro);
