@@ -59,7 +59,6 @@ tipoErros ExibirConteudoArquivo(char *nomeArquivo) {
     return ok;
 }
 
-
 tipoErros ConverterArquivoFormatoUnixParaFormatoDos(char *arquivoOriginal, char *arquivoConvertido) {
     FILE *original, *convertido;
     char *temporario = NULL;
@@ -69,7 +68,7 @@ tipoErros ConverterArquivoFormatoUnixParaFormatoDos(char *arquivoOriginal, char 
     char backupName[256];
     int ch;
     int lastChar = -1;
-    int isUnixFormat = 1;
+    int isDosFormat = 1;
 
     if (arquivoOriginal == NULL)
         return argumentoInvalido;
@@ -78,18 +77,20 @@ tipoErros ConverterArquivoFormatoUnixParaFormatoDos(char *arquivoOriginal, char 
     if (original == NULL)
         return erroArquivoOriginal;
 
-    /* Verificar se o arquivo já está no formato Unix */
+    /* Verificar se o arquivo já está no formato DOS */
     while ((ch = fgetc(original)) != EOF) {
-        if (ch == '\r') {
-            isUnixFormat = 0;
-            break;
+        if (ch == '\n') {
+            if (lastChar != '\r') {
+                isDosFormat = 0;
+                break;
+            }
         }
         lastChar = ch;
     }
 
-    if (isUnixFormat) {
+    if (isDosFormat) {
         fclose(original);
-        return ok;
+        return arquivoJaEstaNoFormato;
     }
 
     /* Voltar para o início do arquivo */
@@ -127,9 +128,13 @@ tipoErros ConverterArquivoFormatoUnixParaFormatoDos(char *arquivoOriginal, char 
 
     /* Converter conteúdo do arquivo original para formato DOS */
     while ((ch = fgetc(original)) != EOF) {
-        if (ch == '\n')
-            fputc('\r', convertido);
+        if (ch == '\n') {
+            if (lastChar != '\r') { /* Evita adicionar um '\r' extra no caso de já haver um '\r\n' */
+                fputc('\r', convertido);
+            }
+        }
         fputc(ch, convertido);
+        lastChar = ch;
     }
 
     fclose(original);
@@ -159,6 +164,8 @@ tipoErros ConverterArquivoFormatoDosParaFormatoUnix(char *arquivoOriginal, char 
     time_t currentTime;
     struct tm *timeInfo;
     char backupName[256];
+    int lastChar = -1;
+    int isUnixFormat = 1;
     int ch;
 
     if (arquivoOriginal == NULL)
@@ -168,13 +175,22 @@ tipoErros ConverterArquivoFormatoDosParaFormatoUnix(char *arquivoOriginal, char 
     if (original == NULL)
         return erroArquivoOriginal;
 
-    /* Verificar se o arquivo já está no formato DOS */
+    /* Verificar se o arquivo já está no formato Unix */
     while ((ch = fgetc(original)) != EOF) {
         if (ch == '\r') {
-            fclose(original);
-            return ok;
+            isUnixFormat = 0;
+            break;
         }
+        lastChar = ch;
     }
+
+    if (isUnixFormat) {
+        fclose(original);
+        return arquivoJaEstaNoFormato;
+    }
+
+    /* Voltar para o início do arquivo */
+    fseek(original, 0, SEEK_SET);
 
     if (arquivoConvertido == NULL) {
         /* Criar arquivo temporário */
@@ -208,15 +224,17 @@ tipoErros ConverterArquivoFormatoDosParaFormatoUnix(char *arquivoOriginal, char 
 
     /* Converter conteúdo do arquivo original para formato Unix */
     while ((ch = fgetc(original)) != EOF) {
-        if (ch != '\r')
-            fputc(ch, convertido);
+        if (ch == '\r') {
+            continue; /* Pula o caractere '\r' (formato DOS) para evitar duplicação no formato Unix */
+        }
+        fputc(ch, convertido);
     }
 
     fclose(original);
     fclose(convertido);
 
-    /* Renomear arquivo original para backup */
     if (arquivoConvertido == NULL) {
+        /* Renomear arquivo original para backup */
         if (rename(arquivoOriginal, novoNome) != 0) {
             free(temporario);
             return erroRenomearOriginal;

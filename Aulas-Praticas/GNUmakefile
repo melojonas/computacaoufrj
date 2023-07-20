@@ -275,6 +275,18 @@ aula08-all:
 		done \
 	done
 
+aula09-all:
+	@for standard in c90 c89 c99 c11 ansi; do \
+		for compiler in gcc clang ; do \
+			for file in aula090?.c ; do \
+				if [ "$$file" = "aula0901.c" ]; then \
+					continue; \
+				fi; \
+				$$compiler $(CFLAGS) -Werror -D$$standard -o $$(basename $$file .c)-$(OS)-$$compiler-$$standard $$file aula0901.c ; \
+			done \
+		done \
+	done
+
 aula0101: $(AULA0101OBJS)
 	$(LD) $(LFLAGS) -o $@ $(AULA0101OBJS)
 	cp -f $@ $@-$(OS)-$(CC)-$(DIALECT)

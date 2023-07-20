@@ -32,7 +32,8 @@ typedef enum {
     erroFechandoArquivo,
     erroOpcaoInvalida,
     erroConverterUnixParaDos,
-    erroConverterDosParaUnix
+    erroConverterDosParaUnix,
+    arquivoJaEstaNoFormato,
     } tipoErros;
 
 void ExibirMensagemErro(tipoErros erro);

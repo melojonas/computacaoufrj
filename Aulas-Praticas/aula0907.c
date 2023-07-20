@@ -53,6 +53,9 @@ void ExibirMensagemErro(tipoErros erro) {
         case comprimentoInvalido:
             printf(TEXT_RED "Erro: Falta argumento para a opção.");
             break;
+        case arquivoJaEstaNoFormato:
+            printf(TEXT_RED "Erro: O arquivo já está no formato solicitado.");
+            break;
         default:
             printf(TEXT_RED "Erro: Erro desconhecido.");
             break;

@@ -50,6 +50,9 @@ void ExibirMensagemErro(tipoErros erro) {
         case erroRenomearConvertido:
             printf(TEXT_RED "Erro: Não foi possível renomear o arquivo convertido.");
             break;
+        case arquivoJaEstaNoFormato:
+            printf(TEXT_RED "Erro: O arquivo já está no formato solicitado.");
+            break;
         default:
             printf(TEXT_RED "Erro desconhecido.");
             break;

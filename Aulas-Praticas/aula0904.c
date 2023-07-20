@@ -19,41 +19,46 @@
 #include <time.h>
 #include <unistd.h>
 #include "aula0901.h"
+#include "aula01.h"
 
 void ExibirMensagemErro(tipoErros erro)
 {
     switch (erro) {
         case ok:
-            printf("Nenhum erro ocorreu.\n");
+            printf(TEXT_RED "Nenhum erro ocorreu.");
             break;
         case argumentoInvalido:
-            printf("Argumento inválido.\n");
+            printf(TEXT_RED "Argumento inválido.");
             break;
         case comprimentoInvalido:
-            printf("Comprimento inválido.\n");
+            printf(TEXT_RED "Comprimento inválido.");
             break;
         case memoriaInsuficiente:
-            printf("Memória insuficiente.\n");
+            printf(TEXT_RED "Memória insuficiente.");
             break;
         case erroArquivoOriginal:
-            printf("Erro ao abrir o arquivo original.\n");
+            printf(TEXT_RED "Erro ao abrir o arquivo original.");
             break;
         case erroArquivoConvertido:
-            printf("Erro ao abrir o arquivo convertido.\n");
+            printf(TEXT_RED "Erro ao abrir o arquivo convertido.");
             break;
         case erroCriarArquivoTemporario:
-            printf("Erro ao criar o arquivo temporário.\n");
+            printf(TEXT_RED "Erro ao criar o arquivo temporário.");
             break;
         case erroRenomearOriginal:
-            printf("Erro ao renomear o arquivo original.\n");
+            printf(TEXT_RED "Erro ao renomear o arquivo original.");
             break;
         case erroRenomearConvertido:
-            printf("Erro ao renomear o arquivo convertido.\n");
+            printf(TEXT_RED "Erro ao renomear o arquivo convertido.");
+            break;
+        case arquivoJaEstaNoFormato:
+            printf(TEXT_RED "Erro: O arquivo já está no formato solicitado.");
             break;
         default:
-            printf("Erro desconhecido.\n");
+            printf("Erro desconhecido.");
             break;
     }
+    printf(RESET "\n");
 }
 
 int main(int argc, char *argv[]) {
@@ -68,7 +73,7 @@ int main(int argc, char *argv[]) {
     tipoErros resultado = ConverterArquivoFormatoDosParaFormatoUnix(arquivoOriginal, arquivoConvertido);
 
     if (resultado == ok) {
-        printf("Conversão concluída com sucesso.\n");
+        printf(TEXT_GREEN "Conversão concluída com sucesso.%s\n", RESET);
     } else {
         ExibirMensagemErro(resultado);
     }
