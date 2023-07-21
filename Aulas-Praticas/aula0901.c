@@ -164,7 +164,6 @@ tipoErros ConverterArquivoFormatoDosParaFormatoUnix(char *arquivoOriginal, char 
     time_t currentTime;
     struct tm *timeInfo;
     char backupName[256];
-    int lastChar = -1;
     int isUnixFormat = 1;
     int ch;
 
@@ -181,7 +180,6 @@ tipoErros ConverterArquivoFormatoDosParaFormatoUnix(char *arquivoOriginal, char 
             isUnixFormat = 0;
             break;
         }
-        lastChar = ch;
     }
 
     if (isUnixFormat) {
